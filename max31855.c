@@ -61,7 +61,7 @@ bool thermocouple_read_temp(int32_t* temperature)
         /* Pull clock high */
         SW_SPI_PORT |= (SW_SPI_SCK);
 
-        //shift to the right
+        //shift to the left
         *temperature = *temperature  << 1; 
 
         //Check the data
