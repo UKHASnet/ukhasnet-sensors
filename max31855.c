@@ -55,20 +55,18 @@ bool thermocouple_read_temp(int32_t* temperature)
     /* Set SS low */
     SW_SPI_PORT &= ~(SW_SPI_CS);
 
-    int32_t* data = temperature;
-    
-    *data = 0; 
+    *temperature = 0;
 
     for (int i = 0; i < 32; i++){
         /* Pull clock high */
         SW_SPI_PORT |= (SW_SPI_SCK);
 
         //shift to the right
-        *data = *data  << 1; 
+        *temperature = *temperature  << 1; 
 
         //Check the data
         if (PINC & SW_SPI_MISO){
-            *data |= 1;
+            *temperature |= 1;
         }
         
         //pull clock low
